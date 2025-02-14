@@ -3,6 +3,11 @@
 # Record start time
 start=$(date +%s)
 
+export PULUMI_CONFIG_PASSPHRASE=""
+
+##pulumi config set aws:profile AdministratorAccess-061039805219
+##pulumi up --config-file=Pulumi.dev.yaml -df
+
 # Run pulumi up with no confirmation. Exit if this fails.
 pulumi up -f
 if [ $? -ne 0 ]; then

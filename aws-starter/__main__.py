@@ -13,7 +13,8 @@ from pulumi_command.remote import ConnectionArgs, Command, CopyFile
 from query import ClickHouseQuery
 
 # override if needed
-private_key = Path(os.path.expanduser("~/.ssh/id_rsa")).read_text()
+##private_key = Path(os.path.expanduser("~/.ssh/id_rsa")).read_text()
+private_key = Path("pulumi-clickhouse-key-pair.pem").read_text()
 availability_zone = Config("1trc").get("aws_zone")
 instance_type = Config("1trc").get("instance_type")
 number_instances = Config("1trc").get_int("number_instances")
@@ -181,9 +182,9 @@ ready_instances = Output.all([*[instance.private_ip for instance in spot_instanc
 export("instance_ids", Output.all(*[instance.id for instance in spot_instances]))
 export("instance_public_ips", Output.all(*[instance.public_ip for instance in spot_instances]))
 
-Output.all(spot_instances[0].public_ip, ready_instances).apply(
-    lambda args: ClickHouseQuery("1trc-clickhouse-query", ip_address=args[0],
-                                 number_instances=number_instances,
-                                 password=password,
-                                 max_timeout=60, query=query))
+# Output.all(spot_instances[0].public_ip, ready_instances).apply(
+#     lambda args: ClickHouseQuery("1trc-clickhouse-query", ip_address=args[0],
+#                                  number_instances=number_instances,
+#                                  password=password,
+#                                  max_timeout=60, query=query))
 

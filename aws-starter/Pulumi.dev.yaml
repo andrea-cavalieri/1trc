@@ -1,10 +1,10 @@
 config:
   aws:region: us-east-1
   1trc:aws_zone: us-east-1b
-  1trc:instance_type: "c7g.12xlarge"
-  1trc:number_instances: 8
+  1trc:instance_type: "c7g.medium"
+  1trc:number_instances: "3"
   # this must exist as a key-pair in AWS
-  1trc:key_name: "<your_key_name>"
+  1trc:key_name: "pulumi-clickhouse-key-pair"
   # change as required
   1trc:cluster_password: "clickhouse_admin"
   # AMD ami (us-east-1)
@@ -13,3 +13,4 @@ config:
   # 1trc:ami: "ami-0c7217cdde317cfec"
   # modify for your query
   1trc:query: "SELECT station, min(measure), max(measure), round(avg(measure), 2) FROM s3Cluster('default','https://coiled-datasets-rp.s3.us-east-1.amazonaws.com/1trc/measurements-*.parquet', '<AWS_ACCESS_KEY_ID>', '<AWS_SECRET_ACCESS_KEY>', headers('x-amz-request-payer' = 'requester')) GROUP BY station ORDER BY station ASC SETTINGS max_download_buffer_size = 52428800, max_threads=128"
+encryptionsalt: v1:UVZ+7OJqSeA=:v1:AyNbE9pJY2wkjzjt:Inj93krn6gfQMh1n4qIIvPsnbvzD9Q==
