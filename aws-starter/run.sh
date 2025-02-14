@@ -9,7 +9,7 @@ export PULUMI_CONFIG_PASSPHRASE=""
 ##pulumi up --config-file=Pulumi.dev.yaml -df
 
 # Run pulumi up with no confirmation. Exit if this fails.
-pulumi up -f
+pulumi up -f -d
 if [ $? -ne 0 ]; then
     echo "pulumi up failed, exiting..."
     exit 1
